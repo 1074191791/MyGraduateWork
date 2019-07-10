@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.crms.mapper.LessonMapper" >
+  <resultMap id="BaseResultMap" type="cn.crms.pojo.Lesson" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lesson_name" property="lessonName" jdbcType="VARCHAR" />
+    <result column="add_date" property="addDate" jdbcType="TIMESTAMP" />
+    <result column="lesson_time" property="lessonTime" jdbcType="DOUBLE" />
+    <result column="lesson_score" property="lessonScore" jdbcType="DOUBLE" />
+    <result column="lesson_remark" property="lessonRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, lesson_name, add_date, lesson_time, lesson_score, lesson_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.crms.pojo.LessonExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lesson
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lesson
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lesson
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.crms.pojo.LessonExample" >
+    delete from lesson
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.crms.pojo.Lesson" >
+    insert into lesson (id, lesson_name, add_date, 
+      lesson_time, lesson_score, lesson_remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{lessonName,jdbcType=VARCHAR}, #{addDate,jdbcType=TIMESTAMP}, 
+      #{lessonTime,jdbcType=DOUBLE}, #{lessonScore,jdbcType=DOUBLE}, #{lessonRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.crms.pojo.Lesson" >
+    insert into lesson
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lessonName != null" >
+        lesson_name,
+      </if>
+      <if test="addDate != null" >
+        add_date,
+      </if>
+      <if test="lessonTime != null" >
+        lesson_time,
+      </if>
+      <if test="lessonScore != null" >
+        lesson_score,
+      </if>
+      <if test="lessonRemark != null" >
+        lesson_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lessonName != null" >
+        #{lessonName,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lessonTime != null" >
+        #{lessonTime,jdbcType=DOUBLE},
+      </if>
+      <if test="lessonScore != null" >
+        #{lessonScore,jdbcType=DOUBLE},
+      </if>
+      <if test="lessonRemark != null" >
+        #{lessonRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.crms.pojo.LessonExample" resultType="java.lang.Integer" >
+    select count(*) from lesson
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lesson
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lessonName != null" >
+        lesson_name = #{record.lessonName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addDate != null" >
+        add_date = #{record.addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lessonTime != null" >
+        lesson_time = #{record.lessonTime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lessonScore != null" >
+        lesson_score = #{record.lessonScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lessonRemark != null" >
+        lesson_remark = #{record.lessonRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lesson
+    set id = #{record.id,jdbcType=INTEGER},
+      lesson_name = #{record.lessonName,jdbcType=VARCHAR},
+      add_date = #{record.addDate,jdbcType=TIMESTAMP},
+      lesson_time = #{record.lessonTime,jdbcType=DOUBLE},
+      lesson_score = #{record.lessonScore,jdbcType=DOUBLE},
+      lesson_remark = #{record.lessonRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.crms.pojo.Lesson" >
+    update lesson
+    <set >
+      <if test="lessonName != null" >
+        lesson_name = #{lessonName,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null" >
+        add_date = #{addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lessonTime != null" >
+        lesson_time = #{lessonTime,jdbcType=DOUBLE},
+      </if>
+      <if test="lessonScore != null" >
+        lesson_score = #{lessonScore,jdbcType=DOUBLE},
+      </if>
+      <if test="lessonRemark != null" >
+        lesson_remark = #{lessonRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.crms.pojo.Lesson" >
+    update lesson
+    set lesson_name = #{lessonName,jdbcType=VARCHAR},
+      add_date = #{addDate,jdbcType=TIMESTAMP},
+      lesson_time = #{lessonTime,jdbcType=DOUBLE},
+      lesson_score = #{lessonScore,jdbcType=DOUBLE},
+      lesson_remark = #{lessonRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <!--分页查 -->
+  <select id="selectByPage" resultMap="BaseResultMap">
+     SELECT
+     <include refid="Base_Column_List" />
+     FROM lesson
+     limit #{start},#{rows}
+  </select>
+
+  <!--通过lesson分页查 总数-->
+  <select id="selectCountByLesson" parameterType="cn.crms.pojo.Lesson" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM lesson
+    where 1=1
+    <if test="lessonName != null" >
+     and lesson_name like "%"#{lessonName,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="lessonRemark != null" >
+      and lesson_remark like "%"#{lessonRemark,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="lessonTime != null" >
+      and lesson_time = #{lessonTime,jdbcType=DOUBLE}
+    </if>
+  </select>
+
+  <!--selectByPageAndLesson 通过lesson分页查数据-->
+  <select id="selectByPageAndLesson" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM lesson
+    where 1=1
+    <if test="lessonName1 != null" >
+      and lesson_name like "%"#{lessonName1}"%"
+    </if>
+    <if test="lessonRemark1 != null" >
+      and lesson_remark like "%"#{lessonRemark1}"%"
+    </if>
+    <if test="lessonTime1 != null" >
+      and lesson_time = #{lessonTime1}
+    </if>
+    limit #{start1},#{rows1}
+  </select>
+
+</mapper>

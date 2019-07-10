@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>crms-parent</artifactId>
+        <groupId>cn.crms</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../crms-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>crms-manager</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>crms-manager-pojo</module>
+        <module>crms-manager-dao</module>
+        <module>crms-manager-interface</module>
+        <module>crms-manager-service</module>
+    </modules>
+
+    <dependencies>
+        <!-- crms-common-->
+        <dependency>
+            <groupId>cn.crms</groupId>
+            <artifactId>crms-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+
+
+</project>
